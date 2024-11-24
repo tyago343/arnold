@@ -30,9 +30,9 @@ jobs:
       # 4. Sube los archivos a la Raspberry Pi
       - name: Deploy to Raspberry Pi
         run: |
-          scp -r ./build santiago@192.168.1.175:/home/santiago/sensor
+          rsync -avz ./build/ santiago@192.168.1.175:/home/santiago/sensor
 
       # 5. Reinicia la aplicación en la Raspberry Pi (opcional)
       - name: Restart app
         run: |
-          ssh santiago@<192.168.1.175 "pm2 restart sensor || pm2 start /home/santiago/sensor --name sensor"
+          ssh santiago@192.168.1.175 "pm2 restart sensor || pm2 start /home/santiago/sensor --name sensor"
