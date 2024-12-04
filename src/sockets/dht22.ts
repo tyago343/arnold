@@ -8,7 +8,7 @@ setInterval(() => {
 }, 2000);
 
 export const socketHandler = (io: any) => {
-  io.on("dht22/connect", (socket: any) => {
+  io.on("connection", (socket: any) => {
     console.log("Cliente conectado al WebSocket");
 
     socket.emit("dht22/data", sensorData);
@@ -17,7 +17,7 @@ export const socketHandler = (io: any) => {
       socket.emit("dht22/data", sensorData);
     }, 2000);
 
-    socket.on("dht22/disconnect", () => {
+    socket.on("disconnect", () => {
       console.log("Cliente desconectado del WebSocket");
     });
   });
