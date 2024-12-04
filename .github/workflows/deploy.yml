@@ -30,7 +30,7 @@ jobs:
       # 4. Sube los archivos a la Raspberry Pi
       - name: Deploy to Raspberry Pi
         run: |
-          rsync -avz ./build/ santiago@192.168.1.175:/home/santiago/sensor
+          scp -r ./build santiago@192.168.1.175:/home/santiago/sensor
 
       # 5. Reinicia la aplicación en la Raspberry Pi (opcional)
       - name: Restart app
