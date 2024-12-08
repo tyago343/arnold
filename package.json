@@ -2,7 +2,7 @@
   "name": "sensor",
   "version": "1.0.0",
   "description": "Dashboard proyect for raspberri pi",
-  "main": "index.js",
+  "main": "build/index.js",
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.3",
@@ -14,15 +14,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts --watch",
-    "start": "node dist/index.js",
+    "start": "node --es-module-specifier-resolution=node build/index.js",
     "build": "tsc"
   },
   "author": "Santiago Casanova",
   "license": "ISC",
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "node-cron": "^3.0.3",
-    "socket.io": "^4.8.1"
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "socket.io": "^4.8.1",
+    "typeorm": "^0.3.20"
   }
 }
