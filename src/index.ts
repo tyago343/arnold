@@ -5,6 +5,7 @@ import "reflect-metadata";
 import database from "./db";
 import { DataSource } from "typeorm";
 import { dht22SocketHandler } from "./sockets/dht22.socket";
+import cors from "cors";
 
 class App {
   public app: express.Application;
@@ -16,7 +17,11 @@ class App {
     this.app = express();
     this.port = port || 3000;
     this.server = http.createServer(this.app);
-    this.io = new Server(this.server);
+    this.io = new Server(this.server, {
+      cors: {
+        origin: "*",
+      },
+    });
     this.database = database;
     this.initializeMiddlewares();
     console.log("server controllers", controllers);
@@ -26,11 +31,12 @@ class App {
   }
   private initializeMiddlewares() {
     this.app.use(express.json());
+    this.app.use(cors());
     dht22SocketHandler(this.io);
   }
   public listen() {
     this.initializeDatabase(this.database).then(() => {
-      this.app.listen(this.port, () => {
+      this.server.listen(this.port, () => {
         console.log(`App listening on the port ${this.port}`);
       });
     });
