@@ -9,9 +9,9 @@ import {
 export class DHT22DatabaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column('decimal', { scale: 2 })
   temperature: number;
-  @Column()
+  @Column('decimal', { scale: 2 })
   humidity: number;
   @CreateDateColumn()
   created_at: Date;
