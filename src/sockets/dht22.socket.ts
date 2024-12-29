@@ -8,9 +8,8 @@ export const dht22SocketHandler = (io: any) => {
     const service = new DHT22Service(io, DHT22DatabaseEntity, database);
     console.log("Conexión al DHT22");
     service.readAndEmit();
-    const interval = service.realTimeSensor();
+    service.realTimeSensor();
     socket.on("disconnect", () => {
-      clearInterval(interval);
       console.log("Desconexión al DHT22");
     });
   });

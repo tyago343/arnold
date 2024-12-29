@@ -25,10 +25,9 @@ export class DHT22Service {
     );
   }
   public realTimeSensor(seconds: number = 1) {
-    const interval = setInterval(() => {
+    setInterval(() => {
       this.readAndEmit();
     }, seconds * 1000);
-    return interval;
   }
   public async save(data: DHT22Entity) {
     console.log("Guardando datos en la base de datos", data);

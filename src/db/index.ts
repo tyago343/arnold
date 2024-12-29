@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import { DHT22DatabaseEntity } from "../entity/dht22.entity";
 dotenv.config();
 const database = new DataSource({
   type: "postgres",
@@ -10,7 +11,7 @@ const database = new DataSource({
   database: process.env["DB_NAME"],
   synchronize: process.env["DB_SYNC"] === "true",
   logging: true,
-  entities: ["../entity/*.ts"],
+  entities: [DHT22DatabaseEntity],
   subscribers: [],
   migrations: [],
 });
