@@ -1,8 +1,11 @@
 import { DataSource } from "typeorm";
+import dotenv from "dotenv";
 import { DHT22, DHT22Entity } from "../adapters/dht22";
 import { Server } from "socket.io";
 import { DHT22DatabaseEntity } from "../entity/dht22.entity";
-
+import { DHT22Mock } from "../adapters/dht22.mock";
+dotenv.config();
+const useMockedSensor = process.env["USE_MOCK_SENSORS"] === "true";
 export class DHT22Service {
   private sensor: DHT22;
   private socket: Server | null;
@@ -13,11 +16,12 @@ export class DHT22Service {
     databaseSchema: typeof DHT22DatabaseEntity,
     database: DataSource
   ) {
-    this.sensor = new DHT22();
+    this.sensor = useMockedSensor ? new DHT22Mock() : new DHT22();
     this.socket = socket;
     this.database = database;
     this.databaseSchema = databaseSchema;
   }
+
   public readAndEmit() {
     this.sensor
       .read()
@@ -26,7 +30,6 @@ export class DHT22Service {
       })
       .catch((error) => {
         console.error("Failed to read sensor data:", error);
-        // Opcional: reintentar la lectura despu�s de un breve retraso
         setTimeout(() => this.readAndEmit(), 1000);
       });
   }
