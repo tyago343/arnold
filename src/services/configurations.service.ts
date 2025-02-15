@@ -13,7 +13,7 @@ export class ConfigurationsService {
   }
   async save(data: Partial<ConfigurationDatabaseEntity>) {
     console.log("Guardando configuraciones en la base de datos", data);
-    this.database.getRepository(this.databaseSchema).save(data);
+    return this.database.getRepository(this.databaseSchema).save(data);
   }
   async get() {
     return this.database.getRepository(this.databaseSchema).find();
